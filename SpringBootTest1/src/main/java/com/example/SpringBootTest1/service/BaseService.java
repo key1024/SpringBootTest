@@ -1,0 +1,21 @@
+package com.example.SpringBootTest1.service;
+
+import java.util.List;
+
+public interface BaseService<T> {
+
+	/**
+	 * 查询所有
+	 */
+	List<T> findAll();
+	
+	/**
+	 * 根据ID查询
+	 */
+	List<T> findById(Long id);
+	
+	/**
+	 * 添加
+	 */
+	void create(T t);
+}
