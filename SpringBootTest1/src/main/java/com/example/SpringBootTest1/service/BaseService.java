@@ -18,4 +18,14 @@ public interface BaseService<T> {
 	 * 添加
 	 */
 	void create(T t);
+	
+	/**
+	 * 删除
+	 */
+	void delete(Long... ids);
+	
+	/**
+	 * 修改
+	 */
+	void update(T t);
 }
