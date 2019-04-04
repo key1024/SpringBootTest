@@ -15,7 +15,7 @@
 
     <!-- 创建 -->
     <insert id="create" parameterType="com.example.SpringBootTest1.entity.User">
-        insert into tb_user(username, password> values (#{username}, #{password})
+        insert into tb_user(username, password) values (#{username}, #{password})
     </insert>
 
     <!-- 删除 -->

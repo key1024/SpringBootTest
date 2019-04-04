@@ -23,7 +23,7 @@ import com.example.SpringBootTest1.entity.User;
 @Aspect
 public class LoginInterceptor {
 	
-	@Pointcut("within(com.example.SpringBootTest1.comtroller..*) && !within(com.example.SpringBootTest1.controller.admin.LoginController)")
+	@Pointcut("within(com.example.SpringBootTest1.controller..*) && !within(com.example.SpringBootTest1.controller.admin.LoginController)")
 	public void pointCut() {
 		
 	}

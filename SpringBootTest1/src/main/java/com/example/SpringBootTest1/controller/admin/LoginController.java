@@ -39,7 +39,7 @@ public class LoginController {
     /**
      * 注销
      */
-    @RequestMapping("logout")
+    @RequestMapping("/logout")
     public String logout() {
         ServletRequestAttributes attributes = (ServletRequestAttributes)RequestContextHolder.getRequestAttributes();
         attributes.getRequest().getSession().removeAttribute("user");
@@ -62,6 +62,14 @@ public class LoginController {
         }
 
         return new Result(false, "发送未知错误");
+    }
+    
+    /**
+     * 登录页
+     */
+    @GetMapping("/login")
+    public String login() {
+    	return "home/login";
     }
 
     /**
