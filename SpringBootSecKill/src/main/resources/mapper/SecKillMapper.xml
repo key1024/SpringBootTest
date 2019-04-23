@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        
+<mapper namespace="com.example.SpringBootSecKill.mapper.SecKillMapper">
+	<select id="findAll" resultType="SecKill">
+		select * from seckill
+	</select>
+	
+	<select id="findById" resultType="SecKill">
+		select * from seckill where seckill_id = #{id}
+	</select>
+	
+	<update id="reduceStock">
+		update seckill
+		set stock_count = stock_count - 1
+		where seckill_id = #{secKillID}
+		and start_time <= #{killTime}
+		and end_time >= #{killTime}
+		and stock_count > 0
+	</update>
+</mapper>
