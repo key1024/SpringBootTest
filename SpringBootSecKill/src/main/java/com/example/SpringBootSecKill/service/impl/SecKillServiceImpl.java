@@ -45,21 +45,21 @@ public class SecKillServiceImpl implements SecKillService {
 	
 	@Override
 	public List<SecKill> findAll(){
-		List<SecKill> secKillList = redisTemplate.boundHashOps(key).values();
-		if(secKillList == null || secKillList.size() == 0) {
-			// 说明缓存中没有秒杀列表数据
-			// 查询数据库中秒杀列表数据，并将列表数据循环放入redis缓存中
-			secKillList = secKillMapper.findAll();
-			for(SecKill secKill : secKillList) {
-				// 将秒杀列表数据依次放入redis缓存中，key：秒杀表的ID值，value：秒杀商品数据
-				redisTemplate.boundHashOps(key).put(secKill.getSecKillID(), secKill);
-				logger.info("findAll -> 从数据库中读取放入缓存中");
-			}
-		} else {
-			logger.info("findAll -> 从缓存中读取");
-		}
+//		List<SecKill> secKillList = redisTemplate.boundHashOps(key).values();
+//		if(secKillList == null || secKillList.size() == 0) {
+//			// 说明缓存中没有秒杀列表数据
+//			// 查询数据库中秒杀列表数据，并将列表数据循环放入redis缓存中
+//			secKillList = secKillMapper.findAll();
+//			for(SecKill secKill : secKillList) {
+//				// 将秒杀列表数据依次放入redis缓存中，key：秒杀表的ID值，value：秒杀商品数据
+//				redisTemplate.boundHashOps(key).put(secKill.getSecKillID(), secKill);
+//				logger.info("findAll -> 从数据库中读取放入缓存中");
+//			}
+//		} else {
+//			logger.info("findAll -> 从缓存中读取");
+//		}
 		
-		return secKillList;
+		return secKillMapper.findAll();
 	}
 	
     @Override
@@ -69,22 +69,24 @@ public class SecKillServiceImpl implements SecKillService {
     
     @Override
     public Exposer exportSecKillUrl(long secKillID) {
-    	SecKill secKill = (SecKill)redisTemplate.boundHashOps(key).get(secKillID);
-    	if(secKill == null) {
-    		// 说明redis缓存中没有此key对应的value
-    		// 查询数据库，并将数据放入缓存中
-    		secKill = secKillMapper.findById(secKillID);
-    		if(secKill == null) {
-    			// 说明没有查到
-    			return new Exposer(false, secKillID);
-    		} else {
-				// 查到了，存入redis缓存中
-    			redisTemplate.boundHashOps(key).put(secKill.getSecKillID(), secKill);
-    			logger.info("RedisTemplate -> 从数据库中读取数据并放入到缓存中");
-			}
-    	} else {
-			logger.info("RedisTemplate -> 从缓存中读取");
-		}
+//    	SecKill secKill = (SecKill)redisTemplate.boundHashOps(key).get(secKillID);
+//    	if(secKill == null) {
+//    		// 说明redis缓存中没有此key对应的value
+//    		// 查询数据库，并将数据放入缓存中
+//    		secKill = secKillMapper.findById(secKillID);
+//    		if(secKill == null) {
+//    			// 说明没有查到
+//    			return new Exposer(false, secKillID);
+//    		} else {
+//				// 查到了，存入redis缓存中
+//    			redisTemplate.boundHashOps(key).put(secKill.getSecKillID(), secKill);
+//    			logger.info("RedisTemplate -> 从数据库中读取数据并放入到缓存中");
+//			}
+//    	} else {
+//			logger.info("RedisTemplate -> 从缓存中读取");
+//		}
+    	
+    	SecKill secKill = secKillMapper.findById(secKillID);
     	Date startTimeDate = secKill.getStartTime();
     	Date endTime = secKill.getEndTime();
     	//获取系统时间
@@ -136,9 +138,9 @@ public class SecKillServiceImpl implements SecKillService {
 					// 秒杀成功
     				SecKillOrder secKillOrder = secKillOrderMapper.findById(secKillID, userPhone);
     				// 更新缓存(更新库存数量)
-    				SecKill secKill = (SecKill)redisTemplate.boundHashOps(key).get(secKillID);
-    				secKill.setStockCount(secKill.getSecKillID() - 1);
-    				redisTemplate.boundHashOps(key).put(secKillID, secKill);
+//    				SecKill secKill = (SecKill)redisTemplate.boundHashOps(key).get(secKillID);
+//    				secKill.setStockCount(secKill.getSecKillID() - 1);
+//    				redisTemplate.boundHashOps(key).put(secKillID, secKill);
     				
     				return new SecKillExecution(secKillID, SecKillStatEnum.SUCCESS, secKillOrder);
 				}

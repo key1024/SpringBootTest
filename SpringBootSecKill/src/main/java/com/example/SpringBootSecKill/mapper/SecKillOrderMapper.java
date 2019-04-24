@@ -2,10 +2,13 @@ package com.example.SpringBootSecKill.mapper;
 
 import java.math.BigDecimal;
 
+import org.apache.ibatis.annotations.Mapper;
+
 import com.example.SpringBootSecKill.entity.SecKillOrder;
 
 import io.lettuce.core.dynamic.annotation.Param;
 
+@Mapper
 public interface SecKillOrderMapper {
 
 	/**

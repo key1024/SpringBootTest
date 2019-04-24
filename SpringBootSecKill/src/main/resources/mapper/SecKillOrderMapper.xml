@@ -18,15 +18,15 @@
 			so.user_phone,
 			so.create_time,
 			so.state,
-			s.seckill_id "secKill.seckill_id",
-			s.title "secKill.title"
-			s.cost_price "secKill.cost_price"
-			s.create_time "secKill.create_time"
-			s.start_time "secKill.start_time"
-			s.end_time "secKill.end_time"
-			s.stock_count "secKill.stock_count"
-			from seckill_order so
-			inner join seckill on so.seckill_id = s.seckill_id
-			where so.seckill_id = #{secKillID} and so.user_phone = #{userPhone}
+			s.seckill_id "seckill.seckill_id",
+			s.title "seckill.title",
+			s.cost_price "seckill.cost_price",
+			s.create_time "seckill.create_time",
+			s.start_time "seckill.start_time",
+			s.end_time "seckill.end_time",
+			s.stock_count "seckill.stock_count"
+		from seckill_order so
+		inner join seckill s on so.seckill_id = s.seckill_id
+		where so.seckill_id = #{secKillID} and so.user_phone = #{userPhone}
 	</select>
 </mapper>

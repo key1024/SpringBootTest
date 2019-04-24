@@ -15,8 +15,8 @@
 		update seckill
 		set stock_count = stock_count - 1
 		where seckill_id = #{secKillID}
-		and start_time <= #{killTime}
-		and end_time >= #{killTime}
-		and stock_count > 0
+		and start_time &lt;= #{killTime}
+		and end_time &gt;= #{killTime}
+		and stock_count &gt; 0
 	</update>
 </mapper>
