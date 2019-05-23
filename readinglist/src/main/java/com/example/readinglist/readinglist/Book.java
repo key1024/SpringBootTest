@@ -97,6 +97,4 @@ public class Book {
     public void setReader(Reader reader) {
         this.reader = reader;
     }
-
-
 }
